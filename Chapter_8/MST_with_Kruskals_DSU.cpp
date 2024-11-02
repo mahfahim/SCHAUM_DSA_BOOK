@@ -1,3 +1,4 @@
+//kruskals_with_DSU
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -22,10 +23,10 @@ int dsu_find(int node)
     par[node]=leader;
     return leader;
 }
-void dsu_union_by_rank(int a,int b)
+void dsu_union_by_rank(int a,int b)// firt = c second = d
 {
-    int leaderA = dsu_find(a);
-    int leaderB = dsu_find(b);
+    int leaderA = dsu_find(a);//-1
+    int leaderB = dsu_find(b);//c
 
     if(level[leaderA] < level[leaderB])
     {
@@ -38,9 +39,9 @@ void dsu_union_by_rank(int a,int b)
         level[leaderA]++;
     }
 }
-bool cmp(Edge a, Edge b)
+bool cmp(Edge list1, Edge list2)
 {
-    return a.w < b.w;
+    return list1.w < list2.w;
 }
 int main()
 {
@@ -67,9 +68,23 @@ int main()
     {
         dsu_union_by_rank(ed.u,ed.v);
         totalcost += ed.w;
+        cout << ed.u << " " << ed.v << " " << ed.w << endl;
 
     }
   }
-  cout << totalcost << endl;
+  // cout << totalcost << endl;
   
 }
+// input 
+// 4 5
+// 1 2 4
+// 1 3 8
+// 1 4 4
+// 2 3 3
+// 3 4 2
+
+// ouput
+
+// 3 4 2
+// 2 3 3
+// 1 2 4
