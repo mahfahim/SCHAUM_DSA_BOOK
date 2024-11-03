@@ -13,22 +13,22 @@ class Node
     }
 };
 
-void FINDA(Node* &head, int item, Node*& loc) {
+void FINDA(Node* &start, int item, Node*& loc) {
     
-    if (head == NULL) {
+    if (start == NULL) {
         loc = NULL;
         return;
     }
 
 
-    if (item < head->val) {
+    if (item < start->val) {
         loc = NULL;
         return;
     }
 
     
-    Node* save = head;
-    Node* tmp = head->next;
+    Node* save = start;
+    Node* tmp = start->next;
 
     while (tmp != NULL) {
     
@@ -47,14 +47,14 @@ void FINDA(Node* &head, int item, Node*& loc) {
 }
 
 int main() {
-    Node* head = new Node(10);
-    head->next = new Node(20);
-    head->next->next = new Node(30);
+    Node* start = new Node(10);
+    start->next = new Node(20);
+    start->next->next = new Node(30);
 
     Node* loc = NULL;
     int item = 25;
 
-    FINDA(head, item, loc);
+    FINDA(start, item, loc);
 
     if (loc) {
         cout << "Location found. Info at LOC: " << loc->next << endl;

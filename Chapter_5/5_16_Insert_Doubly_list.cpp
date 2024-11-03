@@ -1,146 +1,82 @@
-#include<bits/stdc++.h>
+#include <iostream>
 using namespace std;
-class Node
-{
-    public:
-        int val;
-        Node* next;
-        Node* prev;
-    Node(int val)
-    {
-        this->val=val;
-        this->next=NULL;
-        this->prev=NULL;
+
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* prev;
+
+    Node(int val) {
+        this->val = val;
+        this->next = NULL;
+        this->prev = NULL;
     }
 };
- 
- void print_normal(Node* head)
- {
-    Node* tmp = head;
-    while(tmp != NULL)
-    {
-        cout<<tmp->val<<" ";
-        tmp=tmp->next;
-    }
-    cout<<endl;
- }
- void print_reverse(Node* tail)
- {
-    Node* tmp=tail;
-    while(tmp != NULL)
-    {
-        cout<<tmp->val<<" ";
-        tmp=tmp->prev;
-    }
-    cout<<endl;
 
- }
-
- int size(Node* head)
- {
-    Node* tmp =head;
-    int cnt = 0;
-    while(tmp!=NULL)
-    {
-        cnt++;
-        tmp=tmp->next;
-    }
-    return cnt;
- }
- void delete_at_position(Node* head,int pos)
- {
-    Node* tmp = head;
-    for(int i=1;i<=pos-1;i++)
-    {
-        tmp=tmp->next;
-    }
-    Node* deleteNode = tmp->next;
-    tmp->next = tmp->next->next;
-    tmp->next->prev = tmp;
-    delete deleteNode;
- }
-void delete_tail(Node* &head,Node* &tail)
-{
-    Node* deleteNode = tail;
-    tail = tail->prev;
-    delete deleteNode;
-    if(tail==NULL)
-    {
-        head==NULL;
+void INSTWL(Node*& start, Node*& avail, Node* loca, Node* locb, int item) {
+    
+    if (avail == NULL) {
+        cout << "OVERFLOW" << endl;
         return;
     }
-    tail->next = NULL;
-}
-void delete_head(Node* &head,Node* &tail)
-{
-    Node* deleteNode = head;
-    head = head->next;
-    delete deleteNode;
-    if(head == NULL)
-    {
-        tail =NULL;
-        return;
-    }
-    head->prev = NULL;
-}
-int main()
-{
-//    Node *head = NULL;
-//    Node *tail = NULL;
 
-    // Node* head = new Node(10);
-    // Node* a = new Node(20);
-    // Node* b = new Node(30);
-    // Node* c = new Node(40);
-    // Node* tail = c;
-
-    // //connection
-
-    // head->next = a;
-    // a->prev = head;
-    // a->next = b;
-    // b->prev = a;
-    // b->next = c;
-    // c->prev = b;
-
-
-// modifaication 
-// after deleting,there is one node
-//for example
-
- Node* head = new Node(10); // NULL <- 10 -> NULL
- Node* tail = head;
-
-
-     int pos,val;
-    //cin>>pos>>val;
-    pos=0  ;
-    val=100;
-    if(pos >= size(head))
-    {
-        cout<<"Invalid"<<endl;
-    }
-    else if(pos == 0)
-    {
-        delete_head(head,tail);
-    }
-    else if(pos == size(head)-1)
-    {
-        delete_tail(head,tail);
-    }
-    else
-    {
-       delete_at_position(head,pos);
-    }
-
-
-
-   // delete_at_position(head,pos);
-  // delete_tail(tail);
-   // delete_head(head);
     
-    print_normal(head);
-    print_reverse(tail);
+    Node* newNode = avail;          
+    avail = avail->next;           
+
+    newNode->val = item;            
+    newNode->next = NULL;         
+    newNode->prev = NULL;
+
     
+    newNode->next = locb;            
+    newNode->prev = loca;             
+
+    if (loca != NULL) {
+        loca->next = newNode;        
+    } else {
+        start = newNode;              
+    }
+
+    if (locb != NULL) {
+        locb->prev = newNode;         
+    }
+
+    cout << "Inserted " << item << " between nodes ";
+    if (loca) cout << loca->val << " and ";
+    if (locb) cout << locb->val;
+    cout << endl;
+}
+
+
+void printList(Node* start) {
+    Node* current = start;
+    while (current != NULL) {
+        cout << current->val << " ";
+        current = current->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    
+    Node* start = new Node(10);
+    start->next = new Node(20);
+    start->next->prev = start;
+    start->next->next = new Node(30);
+    start->next->next->prev = start->next;
+
+    Node* avail = new Node(0);  
+
+    cout << "Original list: ";
+    printList(start);
+
+    
+    INSTWL(start, avail, start, start->next, 15);
+
+    cout << "List after insertion: ";
+    printList(start);
+
     return 0;
 }

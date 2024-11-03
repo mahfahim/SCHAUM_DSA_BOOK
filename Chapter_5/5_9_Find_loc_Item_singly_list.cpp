@@ -13,21 +13,21 @@ public:
 };
 
 
-void FINDB(Node* head, int item, Node*& loc, Node*& locp) {
-    if (head == NULL) { 
+void FINDB(Node* start, int item, Node*& loc, Node*& locp) {
+    if (start == NULL) { 
         loc = NULL;
         locp = NULL;
         return;
     }
 
-    if (head->val == item) { 
-        loc = head;
+    if (start->val == item) { 
+        loc = start;
         locp = NULL;
         return;
     }
 
-    Node* save = head;
-    Node* ptr = head->next;
+    Node* save = start;
+    Node* ptr = start->next;
 
     while (ptr != NULL) {
         if (ptr->val == item) { 
@@ -45,8 +45,8 @@ void FINDB(Node* head, int item, Node*& loc, Node*& locp) {
 }
 
 
-void displayList(Node* head) {
-    Node* temp = head;
+void displayList(Node* start) {
+    Node* temp = start;
     while (temp != NULL) {
         cout << temp->val << " ";
         temp = temp->next;
@@ -56,19 +56,19 @@ void displayList(Node* head) {
 
 int main() {
     
-    Node* head = new Node(10);
-    head->next = new Node(20);
-    head->next->next = new Node(30);
-    head->next->next->next = new Node(40);
+    Node* start = new Node(10);
+    start->next = new Node(20);
+    start->next->next = new Node(30);
+    start->next->next->next = new Node(40);
 
     cout << "Original list: ";
-    displayList(head);
+    displayList(start);
 
     
     int itemToFind = 30;
     Node* loc = NULL;
-    Node* locp = NULL;
-    FINDB(head, itemToFind, loc, locp);
+    Node* locp = NULL;// loc er ager node
+    FINDB(start, itemToFind, loc, locp);
 
     if (loc != NULL) {
         cout << "Node with value " << itemToFind << " found." << endl;

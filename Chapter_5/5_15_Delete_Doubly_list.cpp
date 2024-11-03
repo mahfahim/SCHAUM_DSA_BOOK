@@ -40,8 +40,8 @@ void DELTWL(Node*& start, Node*& avail, int loc, Node* forw[], Node* back[]) {
     }
 
     
-    forw[loc] = avail; 
-    avail = nodeToDelete; 
+    forw[loc] = avail; /////////////
+    avail = nodeToDelete; //////////
 
     cout << "Node with value " << nodeToDelete->val << " deleted from the list." << endl;
 }
