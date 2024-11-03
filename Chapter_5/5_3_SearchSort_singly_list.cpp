@@ -26,17 +26,29 @@ void insert_at_tail(Node *&head,Node *&tail,int v)
 
  }
 
-  void Traversing(Node* &head)/////////////////////
+  Node* SearchSort(Node* &head,int item)//////////////////////
  {
     cout<<endl;
-    cout<<"Your Linked List: ";
+    cout<<"Your Item location : ";
     Node *tmp=head;
-    while(tmp != NULL)//////////////
+
+    while(tmp != NULL)
     {
-        cout<<tmp->val<<" ";
-        tmp=tmp->next;///////////
+        if(tmp->val == item) 
+        {
+           return tmp;
+        }
+        else if(tmp->val < item)
+        {
+           tmp=tmp->next;
+        }
+        else
+        {
+            return NULL;
+        }
+        
     }
-    cout<<endl<<endl;
+     return NULL;
  }
 int main()
 {
@@ -50,6 +62,12 @@ int main()
     if(val==-1) break;
     insert_at_tail(head,tail,val);
    }  
-   Traversing(head);
+   int item;
+   cin >> item;
+   auto ans = SearchSort(head,item);
+   
+   if(ans == NULL) cout << "Item Not found" << endl;
+   else cout << ans << endl;
+   
    return 0;
 }

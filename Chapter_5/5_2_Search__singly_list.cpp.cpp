@@ -26,13 +26,13 @@ void insert_at_tail(Node *&head,Node *&tail,int v)
 
  }
 
-  Node* Search(Node* &head,int item)
+  Node* Search(Node* &head,int item)///////////////////
  {
     cout<<endl;
     cout<<"Your Item location : ";
     Node *tmp=head;
 
-    while(tmp != NULL)
+    while(tmp != NULL)/////////////////
     {
         if(tmp->val == item) 
         {
