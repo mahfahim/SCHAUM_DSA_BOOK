@@ -13,7 +13,7 @@ public:
 };
 
 
-void FINDB(Node* start, int item, Node*& loc, Node*& locp) {
+void find_in_loc(Node* start, int item, Node*& loc, Node*& locp) {
     if (start == NULL) { 
         loc = NULL;
         locp = NULL;
@@ -68,7 +68,7 @@ int main() {
     int itemToFind = 30;
     Node* loc = NULL;
     Node* locp = NULL;// loc er ager node
-    FINDB(start, itemToFind, loc, locp);
+    find_in_loc(start, itemToFind, loc, locp);
 
     if (loc != NULL) {
         cout << "Node with value " << itemToFind << " found." << endl;

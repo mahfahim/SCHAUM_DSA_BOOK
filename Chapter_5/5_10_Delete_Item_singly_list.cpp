@@ -45,7 +45,7 @@ void FINDB(Node* head, int item, Node*& loc, Node*& locp) {
 }
 
 
-void DELETE(Node*& head, Node*& avail, int item) {
+void delete_item(Node*& head, Node*& avail, int item) {
     Node* loc = NULL;
     Node* locp = NULL;
 
@@ -94,8 +94,8 @@ int main() {
     displayList(head);
 
     
-    int itemToDelete = 30;
-    DELETE(head, avail, itemToDelete);
+    int itemTodelete_item = 30;
+    delete_item(head, avail, itemTodelete_item);
 
     cout << "List after deletion: ";
     displayList(head);

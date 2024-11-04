@@ -13,7 +13,7 @@ class Node
     }
 };
 
-void FINDA(Node* &start, int item, Node*& loc) {
+void find_in_sort(Node* &start, int item, Node*& loc) {
     
     if (start == NULL) {
         loc = NULL;
@@ -54,7 +54,7 @@ int main() {
     Node* loc = NULL;
     int item = 25;
 
-    FINDA(start, item, loc);
+    find_in_sort(start, item, loc);
 
     if (loc) {
         cout << "Location found. Info at LOC: " << loc->next << endl;

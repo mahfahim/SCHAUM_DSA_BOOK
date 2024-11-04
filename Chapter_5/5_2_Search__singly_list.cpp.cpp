@@ -42,6 +42,8 @@ void insert_at_tail(Node *&head,Node *&tail,int v)
     }
      return NULL;
  }
+
+ 
 int main()
 {
    int val;

@@ -28,7 +28,7 @@ int  prims(int src)
        if(vis[pnode]==false) 
        {
         totalcost += pcost;
-        cout << pnode << " "<< pcost << endl;
+       // cout << pnode << " "<< pcost << endl;
        }
        pq.pop();
        vis[pnode]=true;

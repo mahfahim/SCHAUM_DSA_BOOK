@@ -1,85 +1,84 @@
+
+
+// Merge sort in C++
 #include <iostream>
+#include <vector>
 using namespace std;
 
-// Merge function that merges two subarrays
-void merge(int A[], int LB1, int UB1, int LB2, int UB2, int B[], int LB) {
-    int i = LB1, j = LB2, k = LB;
+// Merge two subarrays L and M into arr
+void merge(int arr[], int p, int q, int r) {
+  
+  // Create L ← A[p..q] and M ← A[q+1..r]
+  int n1 = q - p + 1;
+  int n2 = r - q;
+  
+  // Use std::vector to dynamically allocate arrays
+  vector<int> L(n1);
+  vector<int> M(n2);
+  
+  for (int i = 0; i < n1; i++)
+    L[i] = arr[p + i];
     
-    // Merge the two subarrays into B
-    while (i <= UB1 && j <= UB2) {
-        if (A[i] <= A[j]) {
-            B[k++] = A[i++];
-        } else {
-            B[k++] = A[j++];
-        }
-    }
+  for (int j = 0; j < n2; j++)
+    M[j] = arr[q + 1 + j];
     
-    // Copy remaining elements from the first subarray, if any
-    while (i <= UB1) {
-        B[k++] = A[i++];
-    }
-    
-    // Copy remaining elements from the second subarray, if any
-    while (j <= UB2) {
-        B[k++] = A[j++];
-    }
-}
-
-// MERGEPASS function to merge subarrays
-void mergePass(int A[], int N, int L, int B[]) {
-    int Q = N / (2 * L);
-    int S = 2 * L * Q;
-    int R = N - S;
-    
-    // Use the merge function to merge pairs of subarrays
-    for (int J = 0; J < Q; J++) {
-        int LB = 1 + (2 * J) * L;
-        merge(A, LB - 1, LB + L - 2, LB + L - 1, LB + 2 * L - 2, B, LB - 1);
-    }
-    
-    // Handle the last subarray if it has fewer than L elements
-    if (R <= L) {
-        for (int J = 0; J < R; J++) {
-            B[S + J] = A[S + J];
-        }
+  // Maintain current index of sub-arrays and main array
+  int i = 0, j = 0, k = p;
+  
+  // Until we reach either end of either L or M, pick larger among
+  // elements L and M and place them in the correct position at A[p..r]
+  while (i < n1 && j < n2) {
+    if (L[i] <= M[j]) {
+      arr[k] = L[i];
+      i++;
     } else {
-        merge(A, S, S + L - 1, S + L, N - 1, B, S);
+      arr[k] = M[j];
+      j++;
     }
+    k++;
+  }
+  
+  // When we run out of elements in either L or M,
+  // pick up the remaining elements and put in A[p..r]
+  while (i < n1) {
+    arr[k] = L[i];
+    i++;
+    k++;
+  }
+  
+  while (j < n2) {
+    arr[k] = M[j];
+    j++;
+    k++;
+  }
 }
 
-// Merge Sort function
-void mergeSort(int A[], int N) {
-    int* B = new int[N];
-    int L = 1;
+// Divide the array into two subarrays, sort them and merge them
+void mergeSort(int arr[], int l, int r) {
+  if (l < r) {
+    // m is the point where the array is divided into two subarrays
+    int m = l + (r - l) / 2;
     
-    // Repeat until L is greater than or equal to N
-    while (L < N) {
-        mergePass(A, N, L, B);
-        mergePass(B, N, 2 * L, A);
-        L = 2 * L;
-    }
-    
-    delete[] B;
+    mergeSort(arr, l, m);
+    mergeSort(arr, m + 1, r);
+    // Merge the sorted subarrays
+    merge(arr, l, m, r);
+  }
 }
 
+// Print the array
+void printArray(int arr[], int size) {
+  for (int i = 0; i < size; i++)
+    cout << arr[i] << " ";
+  cout << endl;
+}
+
+// Driver program
 int main() {
-    int N;
-    cout << "Enter the number of elements: ";
-    cin >> N;
-    
-    int A[N];
-    cout << "Enter the elements: ";
-    for (int i = 0; i < N; i++) {
-        cin >> A[i];
-    }
-    
-    mergeSort(A, N);
-    
-    cout << "Sorted array: ";
-    for (int i = 0; i < N; i++) {
-        cout << A[i] << " ";
-    }
-    cout << endl;
-    
-    return 0;
+  int arr[] = {6, 5, 12, 10, 9, 1};
+  int size = sizeof(arr) / sizeof(arr[0]);
+  mergeSort(arr, 0, size - 1);
+  cout << "Sorted array: \n";
+  printArray(arr, size);
+  return 0;
 }

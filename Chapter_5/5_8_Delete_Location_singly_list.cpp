@@ -13,7 +13,7 @@ public:
 };
 
 
-void DEL(Node*& head, Node*& avail, Node* loc, Node* locp) {
+void delete_at_loc (Node*& head, Node*& avail, Node* loc, Node* locp) {
     if (loc == NULL) { 
         cout << "Error: Node to delete does not exist." << endl;
         return;
@@ -79,7 +79,7 @@ int main() {
     Node* locp = NULL;
     Node* loc = findNode(head, itemToDelete, locp);
 
-    DEL(head, avail, loc, locp);
+    delete_at_loc(head, avail, loc, locp);
 
     cout << "List after deletion: ";
     displayList(head);
